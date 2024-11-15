@@ -1,0 +1,54 @@
+import { Component } from "react";
+import ChildComponent from "./ChildComponent";
+
+class LifeCycleComponent extends Component {
+  state = {
+    count: 0,
+    isShow: true,
+  };
+
+  componentDidMount() {
+    console.log("componentDidMount...");
+  }
+  shouldComponentUpdate() {
+    console.log("shouldComponentUpdate...");
+    return true; // shoudComponentUpdate()가 return true를 해줘야 render 실행 (count가 증가함)
+  }
+
+  render() {
+    return (
+      <div className="LifeCycleComponent">
+        <h4>LifeCycleComponent</h4>
+        <p>
+          count: {this.state.count}
+          <button
+            onClick={() => {
+              this.setState({ count: this.state.count + 1 });
+            }}
+          >
+            증가
+          </button>
+        </p>
+        {this.state.isShow && <ChildComponent />}
+        <p>
+          <button
+            onClick={() => {
+              this.setState({ isShow: !this.state.isShow });
+            }}
+          >
+            생성/제거
+          </button>
+        </p>
+      </div>
+    );
+  }
+
+  componentDidUpdate() {
+    console.log("componentDidUpdate...");
+  }
+  componentWillUnmount() {
+    console.log("componentWillUnmount...");
+  }
+}
+
+export default LifeCycleComponent;
